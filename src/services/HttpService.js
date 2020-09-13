@@ -13,12 +13,51 @@ export const setHeaders = (headers = {}) => {
   globalHeaders = headers;
 };
 
-export const get = (url, parameters, customHeaders = {}) => axios.get(url, {
-  headers: {
-    ...getHeaders(),
-    ...(isObject(customHeaders) ? customHeaders : {}),
+export const get = (url, parameters, customHeaders = {}) => axios.get(
+  url,
+  {
+    headers: {
+      ...getHeaders(),
+      ...(isObject(customHeaders) ? customHeaders : {}),
+    },
+    params: {
+      ...(isObject(parameters) ? parameters : {}),
+    },
   },
-  params: {
+);
+
+export const post = (url, parameters, customHeaders = {}) => axios.post(
+  url,
+  {
     ...(isObject(parameters) ? parameters : {}),
   },
-});
+  {
+    headers: {
+      ...getHeaders(),
+      ...(isObject(customHeaders) ? customHeaders : {}),
+    },
+  },
+);
+
+export const put = (url, parameters, customHeaders = {}) => axios.put(
+  url,
+  {
+    ...(isObject(parameters) ? parameters : {}),
+  },
+  {
+    headers: {
+      ...getHeaders(),
+      ...(isObject(customHeaders) ? customHeaders : {}),
+    },
+  },
+);
+
+export const remove = (url, customHeaders = {}) => axios.delete(
+  url,
+  {
+    headers: {
+      ...getHeaders(),
+      ...(isObject(customHeaders) ? customHeaders : {}),
+    },
+  },
+);
