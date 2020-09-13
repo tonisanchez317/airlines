@@ -1,8 +1,9 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import FIELDS from '@/constants/fields';
 import * as ListStore from '@/store/ListStore';
 import TableComponent from '@/components/Table/TableComponent.vue';
-import ModalComponent from '@/components/Modal/ModalComponent.vue';
+import DataModalComponent from '@/components/Modal/DataModalComponent.vue';
 import AlertComponent from '@/components/Alert/AlertComponent.vue';
 
 export default {
@@ -10,14 +11,19 @@ export default {
 
   components: {
     AlertComponent,
-    ModalComponent,
+    DataModalComponent,
     TableComponent,
   },
 
   data() {
     return {
-      dataModal: {
-        show: false,
+      isDataModalShown: false,
+      isConfirmModalShown: false,
+      titleConfirmModal: '',
+      selectedItem: null,
+      alert: {
+        type: null,
+        message: '',
       },
     };
   },
@@ -27,57 +33,65 @@ export default {
       list: ListStore.GETTERS.list,
       isStatus: ListStore.GETTERS.isStatus,
       errorMessage: ListStore.GETTERS.errorMessage,
+      // selectedItem: ListStore.GETTERS.selectedItem,
     }),
+  },
+
+  watch: {
+    errorMessage(message) {
+      this.setAlert(message, 'danger');
+    },
   },
 
   created() {
     this.STATUS = ListStore.STATUS;
-    this.COLUMNS = [
-      {
-        label: 'ID',
-        key: 'id',
-      },
-      {
-        label: 'IATA',
-        key: 'iata',
-      },
-      {
-        label: 'ICAO',
-        key: 'icao',
-      },
-      {
-        label: 'Airline',
-        key: 'airline',
-      },
-      {
-        label: 'Call sign',
-        key: 'callsign',
-      },
-      {
-        label: 'Country',
-        key: 'country',
-      },
-    ];
-    this.fetchList();
+    this.fields = FIELDS;
+    this.fetchData();
   },
 
   methods: {
     ...mapActions(ListStore.NAMESPACE, {
-      fetchList: ListStore.ACTIONS.fetchData,
+      fetchData: ListStore.ACTIONS.fetchData,
       removeError: ListStore.ACTIONS.removeError,
+      createData: ListStore.ACTIONS.createData,
+      updateData: ListStore.ACTIONS.updateData,
     }),
+    setAlert(message = '', type = 'primary') {
+      this.alert.type = type;
+      this.alert.message = message;
+    },
+    removeAlert() {
+      this.alert.message = '';
+    },
     editRow({ row }) {
-      console.log(row);
+      this.selectedItem = row;
+      this.isDataModalShown = true;
     },
     removeRow({ row }) {
       console.log(row);
     },
-    addRow() {
-      this.dataModal.show = true;
-      console.log('add');
+    showDataModal() {
+      this.selectedItem = null;
+      this.isDataModalShown = true;
     },
-    onClickCloseDataModal() {
-      this.dataModal.show = false;
+    closeDataModal() {
+      this.isDataModalShown = false;
+    },
+    async addRow(payload) {
+      await this.createData(payload);
+      this.closeDataModal();
+      if (this.isStatus(ListStore.STATUS.created)) {
+        this.setAlert('Data created', 'success');
+      }
+      this.fetchData();
+    },
+    async updateRow(payload) {
+      await this.updateData(payload);
+      this.closeDataModal();
+      if (this.isStatus(ListStore.STATUS.updated)) {
+        this.setAlert('Data created', 'success');
+      }
+      this.fetchData();
     },
   },
 };
@@ -86,34 +100,36 @@ export default {
 <template>
   <div class="d-flex justify-content-center align-items-center flex-column">
     <AlertComponent
-      v-if="isStatus(STATUS.error)"
-      type="danger"
+      v-if="alert.message"
+      :type="alert.type"
       class="w-100"
-      @on-click-close="removeError"
+      @on-click-close="removeAlert"
     >
-      {{ errorMessage }}
+      {{ alert.message }}
     </AlertComponent>
 
     <div class="container my-5">
       <div class="row">
         <TableComponent
           :data="list"
-          :columns="COLUMNS"
+          :columns="fields"
           add
           edit
           remove
           class="col-12"
-          @on-click-add="addRow"
+          @on-click-add="showDataModal"
           @on-click-edit="editRow"
           @on-click-remove="removeRow"
         />
       </div>
     </div>
-    <ModalComponent
-      :show="dataModal.show"
-      @on-click-close="onClickCloseDataModal"
-    >
-      <p>Hello world</p>
-    </ModalComponent>
+
+    <DataModalComponent
+      v-if="isDataModalShown"
+      :data="selectedItem"
+      @add-row="addRow"
+      @update-row="updateRow"
+      @on-click-close="closeDataModal"
+    />
   </div>
 </template>

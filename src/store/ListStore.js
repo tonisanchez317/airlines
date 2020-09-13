@@ -4,6 +4,7 @@ import * as httpService from '@/services/HttpService';
 
 const endpoint = {
   list: () => '/api/list',
+  create: () => '/api/list',
   update: dataId => `/api/list/${dataId}`,
   remove: dataId => `/api/list/${dataId}`,
 };
@@ -25,6 +26,7 @@ export const NAMESPACE = 'LIST_STORE';
 
 export const GETTERS = {
   list: 'GET_LIST',
+  selectedItem: 'GET_SELECTED_ITEM',
   errorMessage: 'GET_ERROR_MESSAGE',
   isStatus: 'IS_STATUS',
 };
@@ -53,6 +55,9 @@ const state = {
 const getters = {
   [GETTERS.list](state) {
     return state.list;
+  },
+  [GETTERS.selectedItem](state) {
+    return state.selected;
   },
   [GETTERS.isStatus](state) {
     return status => state.status === status;
@@ -98,7 +103,7 @@ const actions = {
     try {
       commit(MUTATIONS.setStatus, STATUS.creati);
 
-      await httpService.put(endpoint.update(payload.id), {
+      await httpService.post(endpoint.create(), {
         ...payload,
       });
 

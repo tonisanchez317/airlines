@@ -54,7 +54,6 @@ export default {
       class="modal d-block"
       tabindex="-1"
       role="dialog"
-      @click="close"
     >
       <div
         class="modal-dialog"
@@ -69,16 +68,23 @@ export default {
           <div class="modal-body">
             <slot />
           </div>
-          <div class="modal-footer">
-            <button
-              v-for="(button, buttonIndex) in buttons"
-              :key="`button-${buttonIndex}`"
-              type="button"
-              :class="`btn btn-${button.type}`"
-              @click="onClickButton"
-            >
-              {{ button.label }}
-            </button>
+          <div class="modal-footer d-flex justify-content-center">
+            <div class="d-flex justify-content-center w-75">
+              <div
+                v-for="(button, buttonIndex) in buttons"
+                :key="`button-${buttonIndex}`"
+                class="col text-center"
+              >
+                <button
+                  :class="button.type ? `btn-${button.type} w-100` : ''"
+                  type="button"
+                  class="btn"
+                  @click="onClickButton(button)"
+                >
+                  {{ button.label }}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
