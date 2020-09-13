@@ -19,6 +19,10 @@ export default {
       type: Object,
       default: null,
     },
+    isRemoving: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   data() {
@@ -27,7 +31,7 @@ export default {
         ...(this.data ? this.data : {}),
       },
       buttons: [],
-      isConfirming: false,
+      isConfirming: this.isRemoving,
     };
   },
 
@@ -57,22 +61,33 @@ export default {
     },
 
     confirmActionButtons() {
+      const event = (this.isRemoving && 'remove-row') || (this.isEditing && 'update-row') || 'add-row';
+
       return [
         {
-          label: 'Cancel',
+          label: this.isRemoving ? 'Close' : 'Cancel',
           method: () => {
+            if (this.isRemoving) {
+              this.closeModal();
+              return;
+            }
+
             this.isConfirming = false;
           },
         },
         {
           label: 'Confirm',
           type: 'primary',
-          method: () => this.$emit(this.isEditing ? 'update-row' : 'add-row', this.state),
+          method: () => this.$emit(event, this.state),
         },
       ];
     },
 
     title() {
+      if (this.isRemoving) {
+        return 'Do you want to remove the item?';
+      }
+
       if (this.isConfirming && this.isEditing) {
         return 'Do you want to update the item?';
       }
@@ -109,7 +124,7 @@ export default {
 
   methods: {
     closeModal() {
-      this.$emit('on-click-close');
+      this.$emit('on-close');
     },
   },
 };
@@ -120,7 +135,7 @@ export default {
     :title="title"
     :buttons="isConfirming ? confirmActionButtons : actionButtons"
     show
-    @on-click-close="closeModal"
+    @on-close="closeModal"
   >
     <ReadDataComponent
       v-if="isConfirming"

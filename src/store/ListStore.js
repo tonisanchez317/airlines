@@ -137,9 +137,9 @@ const actions = {
     try {
       commit(MUTATIONS.setStatus, STATUS.removing);
 
-      await httpService.delete(endpoint.remove(payload.id));
+      await httpService.remove(endpoint.remove(payload.id));
 
-      commit(MUTATIONS.setStatus, STATUS.updated);
+      commit(MUTATIONS.setStatus, STATUS.removed);
     } catch (error) {
       const message = get(error, 'message');
 

@@ -22,7 +22,7 @@ export default {
       class="close"
       data-dismiss="alert"
       aria-label="Close"
-      @click="$emit('on-click-close')"
+      @click="$emit('on-close')"
     >
       <span aria-hidden="true">&times;</span>
     </button>

@@ -32,7 +32,7 @@ export default {
 
   methods: {
     close() {
-      this.$emit('on-click-close');
+      this.$emit('on-close');
     },
     onClickButton(button = {}) {
       if (button.method) {

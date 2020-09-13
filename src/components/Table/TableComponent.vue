@@ -17,7 +17,7 @@ export default {
       type: Array,
       default: () => [],
     },
-    edit: {
+    update: {
       type: Boolean,
       default: false,
     },
@@ -29,8 +29,8 @@ export default {
 
   methods: {
     values,
-    onClickEdit(row) {
-      this.$emit('on-click-edit', { row });
+    onClickUpdate(row) {
+      this.$emit('on-click-update', { row });
     },
     onClickRemove(row) {
       this.$emit('on-click-remove', { row });
@@ -66,7 +66,7 @@ export default {
           >
             {{ column.label }}
           </th>
-          <th v-if="edit || remove" />
+          <th v-if="update || remove" />
         </tr>
       </thead>
       <tbody>
@@ -82,18 +82,18 @@ export default {
             {{ row[column.key] }}
           </td>
           <td
-            v-if="edit || remove"
+            v-if="update || remove"
             class="align-middle"
           >
             <div class="d-flex">
               <button
-                v-if="edit"
+                v-if="update"
                 :class="{
                   'mr-3': remove,
                 }"
                 class="btn btn-outline-dark"
                 type="button"
-                @click="onClickEdit(row)"
+                @click="onClickUpdate(row)"
               >
                 <i class="icon-pencil2" />
               </button>
