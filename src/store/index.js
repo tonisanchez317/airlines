@@ -1,15 +1,13 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import * as ListStore from './ListStore';
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
+const store = new Vuex.Store({
   modules: {
+    [ListStore.NAMESPACE]: ListStore.store,
   },
 });
+
+export default store;
