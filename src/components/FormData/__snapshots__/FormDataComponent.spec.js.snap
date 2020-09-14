@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Given FormDataComponent When component does not receive a value Then HTML rendered should be the same than original snapshot 1`] = `
+<form>
+  <!---->
+  <div class="form-group"><label for="iata">
+      IATA
+    </label> <input id="iata" type="text" placeholder="IATA" class="form-control"></div>
+  <div class="form-group"><label for="icao">
+      ICAO
+    </label> <input id="icao" type="text" placeholder="ICAO" class="form-control"></div>
+  <div class="form-group"><label for="airline">
+      Airline
+    </label> <input id="airline" type="text" placeholder="Airline" class="form-control"></div>
+  <div class="form-group"><label for="callsign">
+      Call sign
+    </label> <input id="callsign" type="text" placeholder="Call sign" class="form-control"></div>
+  <div class="form-group"><label for="country">
+      Country
+    </label> <select id="country" class="form-control">
+      <option value="">
+        Choose a country
+      </option>
+      <option value="Spain">
+        Spain
+      </option>
+      <option value="USA">
+        USA
+      </option>
+      <option value="France">
+        France
+      </option>
+    </select></div>
+</form>
+`;
+
+exports[`Given FormDataComponent When component receives a value Then HTML rendered should be the same than original snapshot 1`] = `
+<form>
+  <div class="form-group"><label>
+      ID
+    </label>
+    <div>
+      1
+    </div>
+  </div>
+  <div class="form-group"><label for="iata">
+      IATA
+    </label> <input id="iata" type="text" placeholder="IATA" class="form-control"></div>
+  <div class="form-group"><label for="icao">
+      ICAO
+    </label> <input id="icao" type="text" placeholder="ICAO" class="form-control"></div>
+  <div class="form-group"><label for="airline">
+      Airline
+    </label> <input id="airline" type="text" placeholder="Airline" class="form-control"></div>
+  <div class="form-group"><label for="callsign">
+      Call sign
+    </label> <input id="callsign" type="text" placeholder="Call sign" class="form-control"></div>
+  <div class="form-group"><label for="country">
+      Country
+    </label> <select id="country" class="form-control">
+      <option value="">
+        Choose a country
+      </option>
+      <option value="Spain">
+        Spain
+      </option>
+      <option value="USA">
+        USA
+      </option>
+      <option value="France">
+        France
+      </option>
+    </select></div>
+</form>
+`;
