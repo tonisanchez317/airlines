@@ -27,6 +27,7 @@ module.exports = {
         ],
       },
     ],
+    radix: ['error', 'as-needed'],
   },
   overrides: [
     {

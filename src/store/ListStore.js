@@ -1,5 +1,4 @@
 import get from 'lodash/get';
-import DATA from '@/../public/data.json';
 import * as httpService from '@/services/HttpService';
 
 const endpoint = {
@@ -84,9 +83,9 @@ const actions = {
     try {
       commit(MUTATIONS.setStatus, STATUS.loading);
 
-      const response = await httpService.get(endpoint.list()).catch(() => ({ data: DATA }));
+      const response = await httpService.get(endpoint.list());
 
-      const data = get(response, 'data.data', []);
+      const data = get(response, 'data', []);
 
       commit(MUTATIONS.setList, data);
 
