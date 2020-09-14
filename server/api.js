@@ -2,6 +2,8 @@ const express = require('express');
 const last = require('lodash/last');
 const findIndex = require('lodash/findIndex');
 const remove = require('lodash/remove');
+const filter = require('lodash/filter');
+const includes = require('lodash/includes');
 
 const DATA = require('../public/data.json');
 
@@ -15,9 +17,23 @@ const getNextId = () => {
   return newId;
 };
 
-router.get('/list', (httpRequest, httpResponse) => httpResponse
-  .status(200)
-  .json(data));
+router.get('/list', (httpRequest, httpResponse) => {
+  const search = httpRequest.query.q;
+
+  if (!search) {
+    return httpResponse
+      .status(200)
+      .json(data);
+  }
+
+  const filtered = filter(data, item => includes(item.iata, search)
+      || includes(item.icao, search)
+      || includes(item.airline, search));
+
+  return httpResponse
+    .status(200)
+    .json(filtered);
+});
 
 router.post('/list', (httpRequest, httpResponse) => {
   const {

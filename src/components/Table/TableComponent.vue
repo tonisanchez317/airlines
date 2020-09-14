@@ -27,6 +27,18 @@ export default {
     },
   },
 
+  data() {
+    return {
+      search: '',
+    };
+  },
+
+  watch: {
+    search(value) {
+      this.$emit('on-change-search', { search: value });
+    },
+  },
+
   methods: {
     values,
     onClickUpdate(row) {
@@ -45,7 +57,15 @@ export default {
 <template>
   <section>
     <header class="row mb-3">
-      <div class="col" />
+      <div class="col">
+        <input
+          v-model="search"
+          class="form-control"
+          placeholder="Search..."
+          autocomplete="off"
+          type="search"
+        >
+      </div>
       <div class="col d-flex justify-content-end">
         <button
           v-if="add"

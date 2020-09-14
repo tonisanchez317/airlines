@@ -1,4 +1,6 @@
 import get from 'lodash/get';
+import isEmpty from 'lodash/isEmpty';
+import trim from 'lodash/trim';
 import * as httpService from '@/services/HttpService';
 
 const endpoint = {
@@ -79,11 +81,15 @@ const mutations = {
 };
 
 const actions = {
-  async [ACTIONS.fetchData]({ commit }) {
+  async [ACTIONS.fetchData]({ commit }, { search = '' } = {}) {
     try {
       commit(MUTATIONS.setStatus, STATUS.loading);
 
-      const response = await httpService.get(endpoint.list());
+      const cleanedSearch = trim(search);
+
+      const response = await httpService.get(endpoint.list(), {
+        q: isEmpty(cleanedSearch) ? undefined : cleanedSearch,
+      });
 
       const data = get(response, 'data', []);
 

@@ -1,5 +1,6 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import debounce from 'lodash/debounce';
 import FIELDS from '@/constants/fields';
 import * as ListStore from '@/store/ListStore';
 import TableComponent from '@/components/Table/TableComponent.vue';
@@ -77,6 +78,9 @@ export default {
       this.isRemoving = true;
       this.isDataModalShown = true;
     },
+    onChangeSearch: debounce(function debounceOnChangeSearch({ search }) {
+      this.fetchData({ search });
+    }, 500),
     closeDataModal() {
       this.isDataModalShown = false;
     },
@@ -131,6 +135,7 @@ export default {
           @on-click-add="onClickAdd"
           @on-click-update="onClickUpdate"
           @on-click-remove="onClickRemove"
+          @on-change-search="onChangeSearch"
         />
       </div>
     </div>

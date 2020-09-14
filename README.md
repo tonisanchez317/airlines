@@ -1,29 +1,46 @@
-# passnfly
+# Airlines
 
-## Project setup
+### Run the application
+- Rename `.env.example` to `.env` 
+- Run project in development mode `yarn serve`
+- Run api server `yarn api`
+
+### Missing parts
+- Component tests
+- Prepare the build to be run in a Docker container
+- Store the data in a database 
+- Manage better the errors
+
+### Yarn commands
+- Project setup
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+- Compiles and hot-reloads for development
 ```
 yarn serve
 ```
 
-### Compiles and minifies for production
+- Compiles and minifies for production
 ```
 yarn build
 ```
 
-### Run your unit tests
+- Run api server
+```
+yarn api
+```
+
+- Run your unit tests
 ```
 yarn test:unit
 ```
 
-### Lints and fixes files
+- Lints and fixes files
 ```
 yarn lint
 ```
 
-### Customize configuration
+- Customize configuration: 
 See [Configuration Reference](https://cli.vuejs.org/config/).
