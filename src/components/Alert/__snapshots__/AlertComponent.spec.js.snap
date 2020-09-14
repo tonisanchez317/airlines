@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Given AlertComponent When component receives alert type "danger" Then HTML rendered should be the same than original snapshot 1`] = `<div role="alert" class="alert alert-danger alert-dismissible fade show"> <button type="button" data-dismiss="alert" aria-label="Close" class="close"><span aria-hidden="true">×</span></button></div>`;
+
+exports[`Given AlertComponent When component receives alert type "dark" Then HTML rendered should be the same than original snapshot 1`] = `<div role="alert" class="alert alert-dark alert-dismissible fade show"> <button type="button" data-dismiss="alert" aria-label="Close" class="close"><span aria-hidden="true">×</span></button></div>`;
+
+exports[`Given AlertComponent When component receives alert type "info" Then HTML rendered should be the same than original snapshot 1`] = `<div role="alert" class="alert alert-info alert-dismissible fade show"> <button type="button" data-dismiss="alert" aria-label="Close" class="close"><span aria-hidden="true">×</span></button></div>`;
+
+exports[`Given AlertComponent When component receives alert type "light" Then HTML rendered should be the same than original snapshot 1`] = `<div role="alert" class="alert alert-light alert-dismissible fade show"> <button type="button" data-dismiss="alert" aria-label="Close" class="close"><span aria-hidden="true">×</span></button></div>`;
+
+exports[`Given AlertComponent When component receives alert type "primary" Then HTML rendered should be the same than original snapshot 1`] = `<div role="alert" class="alert alert-primary alert-dismissible fade show"> <button type="button" data-dismiss="alert" aria-label="Close" class="close"><span aria-hidden="true">×</span></button></div>`;
+
+exports[`Given AlertComponent When component receives alert type "secondary" Then HTML rendered should be the same than original snapshot 1`] = `<div role="alert" class="alert alert-secondary alert-dismissible fade show"> <button type="button" data-dismiss="alert" aria-label="Close" class="close"><span aria-hidden="true">×</span></button></div>`;
+
+exports[`Given AlertComponent When component receives alert type "success" Then HTML rendered should be the same than original snapshot 1`] = `<div role="alert" class="alert alert-success alert-dismissible fade show"> <button type="button" data-dismiss="alert" aria-label="Close" class="close"><span aria-hidden="true">×</span></button></div>`;
+
+exports[`Given AlertComponent When component receives alert type "test" Then HTML rendered should be the same than original snapshot 1`] = `<div role="alert" class="alert alert-primary alert-dismissible fade show"> <button type="button" data-dismiss="alert" aria-label="Close" class="close"><span aria-hidden="true">×</span></button></div>`;
+
+exports[`Given AlertComponent When component receives alert type "warning" Then HTML rendered should be the same than original snapshot 1`] = `<div role="alert" class="alert alert-warning alert-dismissible fade show"> <button type="button" data-dismiss="alert" aria-label="Close" class="close"><span aria-hidden="true">×</span></button></div>`;

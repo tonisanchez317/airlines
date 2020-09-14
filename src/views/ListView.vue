@@ -6,6 +6,7 @@ import * as ListStore from '@/store/ListStore';
 import TableComponent from '@/components/Table/TableComponent.vue';
 import DataModalComponent from '@/components/Modal/DataModalComponent.vue';
 import AlertComponent from '@/components/Alert/AlertComponent.vue';
+import ALERT_TYPES from '@/components/Alert/types';
 
 export default {
   name: 'ListView',
@@ -38,7 +39,7 @@ export default {
 
   watch: {
     errorMessage(message) {
-      this.setAlert(message, 'danger');
+      this.setAlert(message, ALERT_TYPES.danger);
     },
   },
 
@@ -56,7 +57,7 @@ export default {
       updateData: ListStore.ACTIONS.updateData,
       removeData: ListStore.ACTIONS.removeData,
     }),
-    setAlert(message = '', type = 'primary') {
+    setAlert(message = '', type = ALERT_TYPES.primary) {
       this.alert.type = type;
       this.alert.message = message;
     },
@@ -88,7 +89,7 @@ export default {
       await this.createData(payload);
       this.closeDataModal();
       if (this.isStatus(ListStore.STATUS.created)) {
-        this.setAlert('Data created', 'success');
+        this.setAlert('Data created', ALERT_TYPES.success);
       }
       this.fetchData();
     },
@@ -96,7 +97,7 @@ export default {
       await this.updateData(payload);
       this.closeDataModal();
       if (this.isStatus(ListStore.STATUS.updated)) {
-        this.setAlert('Data updated', 'success');
+        this.setAlert('Data updated', ALERT_TYPES.sucess);
       }
       this.fetchData();
     },
@@ -104,7 +105,7 @@ export default {
       await this.removeData(payload);
       this.closeDataModal();
       if (this.isStatus(ListStore.STATUS.removed)) {
-        this.setAlert('Data removed', 'success');
+        this.setAlert('Data removed', ALERT_TYPES.success);
       }
       this.fetchData();
     },
