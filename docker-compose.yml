@@ -1,0 +1,54 @@
+version: '3'
+
+networks:
+  airline:
+      name: airline-app
+
+services:
+    database:
+        container_name: airline-database
+        image: mongo:4.4-bionic
+        expose:
+            - "27017"
+        networks:
+          - airline
+        volumes:
+            - ./database/init.sh:/docker-entrypoint-initdb.d/init.sh
+            - ${DATABASE_MIGRATIONS_FOLDER}:/database/migrations
+        env_file:
+          - .env
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: ${DATABASE_USER}
+            MONGO_INITDB_ROOT_PASSWORD: ${DATABASE_PWD}
+            MONGO_INITDB_DATABASE: ${DATABASE_NAME}
+            MIGRATIONS_FOLDER: /database/migrations
+
+    database-admin:
+        container_name: airline-database-admin
+        depends_on:
+            - database
+        image: mongo-express
+        ports:
+            - "8081:8081"
+        networks:
+            - airline
+        environment:
+            ME_CONFIG_MONGODB_ADMINUSERNAME: ${DATABASE_USER}
+            ME_CONFIG_MONGODB_ADMINPASSWORD: ${DATABASE_PWD}
+            ME_CONFIG_MONGODB_SERVER: airline-database
+
+    app:
+        container_name: airline-app
+        depends_on:
+            - database
+        build:
+            context: .
+            args:
+                APP_PORT: ${APP_PORT}
+        image: airline-app
+        networks:
+          - airline
+        ports:
+            - "80:${APP_PORT}"
+        environment:
+            NODE_ENV: production

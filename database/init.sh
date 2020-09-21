@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+
+mongo --eval "\
+	var DATABASE_USER = '$MONGO_INITDB_ROOT_USERNAME'; \
+	var DATABASE_PWD = '$MONGO_INITDB_ROOT_PASSWORD'; \
+	var DATABASE_NAME = '$MONGO_INITDB_DATABASE'; \
+	var MIGRATIONS_FOLDER = '$MIGRATIONS_FOLDER'; \
+	" \
+	${MIGRATIONS_FOLDER}/setup.js;

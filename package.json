@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "api": "node server",
+    "app": "node server",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
